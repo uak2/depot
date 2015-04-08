@@ -1,0 +1,41 @@
+%p#notice= notice
+
+.br
+.page-header
+  .h1=@product.name
+
+-#.row
+-#  .pull-right.col-md-3{style: "white-space: nowrap"}
+-#    .glyphicon.glyphicon-chevron-right
+-#    -@sum,@sum2=0,0;@cart.line_items.each{|itm| @sum+=itm.quantity;@sum2+=itm.price*itm.quantity}
+-#    = link_to "В вашей корзине #{@sum} #{Russian.p(@sum,'товар','товара','товаров')}. Общая цена: #{number_to_currency(@sum2, separator: ",", delimiter: "", unit: "₽", format: "%n %u")}", @cart, class: "btn btn-danger", :style => "white-space:normal; width: 216px;"
+
+
+%p
+  %b Название:
+  = @product.name
+%p
+  %b Описание:
+  = @product.description
+%p
+  %b Цена:
+  = number_to_currency(@product.price, unit: "\u20BD", separator: ",", delimiter: "", format: "%n %u")
+%p
+  %b Вес:
+  = @product.weight
+
+= link_to line_items_path(product_id: @product.id), data:{method: :post}, class: "btn btn-success" do
+  =fa_icon "cart-plus"
+  Добавить в корзину
+\|
+= link_to @cart, class: "btn btn-info" do
+  =fa_icon "share"
+  Перейти к корзине
+\|
+= link_to edit_product_path(@product), class: "btn btn-warning" do
+  =fa_icon "pencil"
+  Редактировать
+\|
+= link_to products_path, class: "btn btn-primary" do
+  =fa_icon "reply"
+  Вернуться к списку товаров

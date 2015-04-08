@@ -1,0 +1,29 @@
+-#.row.pull-right.col-md-3{style: "white-space: nowrap"}
+-#  .glyphicon.glyphicon-chevron-right
+-#  -@sum,@sum2=0,0;@cart.line_items.each{|itm| @sum+=itm.quantity;@sum2+=itm.price*itm.quantity}
+-#  = link_to "В вашей корзине #{@sum} #{Russian.p(@sum,'товар','товара','товаров')}. Общая цена: #{number_to_currency(@sum2, separator: ",", delimiter: "", unit: "₽", format: "%n %u")}", @cart, class: "btn btn-danger", :style => "white-space:normal; width: 216px;"
+= form_for @product do |f|
+  =error_messages_for(@product)
+  .row
+    .col-md-3
+      .form-group
+        =f.label :name
+        =f.text_field :name, class: "form-control"
+    .col-md-3
+      .form-group
+        =f.label :description
+        =f.text_area :description, class: "form-control"
+  .row
+    .col-md-3
+      .form-group
+        =f.label :price
+        .input-group
+          =f.text_field :price, class: "form-control"
+          %span.input-group-addon.glyphicon.glyphicon-ruble
+    .col-md-3
+      .form-group
+        =f.label :weight
+        .input-group
+          =f.text_field :weight, class: "form-control"
+          %span.input-group-addon г.
+  .actions=f.submit nil, class: "btn btn-primary"
